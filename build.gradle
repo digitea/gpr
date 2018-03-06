@@ -31,3 +31,10 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
 }
+
+// Execute code with arguments from -Pa="..."
+task('exec', type: JavaExec) {
+    main = mainClassName
+    classpath = sourceSets.main.runtimeClasspath
+    args(a.split(" "))
+}
