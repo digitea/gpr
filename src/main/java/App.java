@@ -17,17 +17,8 @@ public class App {
     }
 
     public String invoke () {
-        Map<String, Command> map = new HashMap<>();
-        map.put("help", new HelpCommand());
-        map.put("info", new InfoCommand());
-        map.put("work", new WorkCommand(args));
-
         try {
-            if (!map.containsKey(name)) {
-                return new UnknownCommand(name).run();
-            }
-
-            return map.get(name).run();
+            return CommandParser.parse(name, args).run();
         } catch (Exception e) {
             e.printStackTrace();
             return "";

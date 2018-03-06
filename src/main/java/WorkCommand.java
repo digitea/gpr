@@ -19,6 +19,6 @@ public class WorkCommand implements Command {
 
         process.waitFor();
 
-        return new InfoCommand().run();
+        return String.format("Working on branch issue-%s%n", issue);
     }
 }
