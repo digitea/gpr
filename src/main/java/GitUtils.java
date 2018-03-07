@@ -3,6 +3,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -28,5 +29,16 @@ public class GitUtils {
         } catch (IOException e) {
             return Optional.empty();
         }
+    }
+
+    public static String getRemote () {
+        Path env = Paths.get(System.getProperty("user.dir"));
+        Executer.Output out = Executer.run(env.toFile(),
+            "git", "remote", "-v");
+
+        Pattern pattern = Pattern.compile("^origin\\s+(\\S+).*\n.*$");
+        Matcher matcher = pattern.matcher(out.output);
+
+        return matcher.group(1);
     }
 }
